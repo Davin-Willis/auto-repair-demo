@@ -1,26 +1,61 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-base: #141517;
+  --color-raised: #1d1f22;
+  --color-ink: #edece8;
+  --color-muted: #a19f98;
+  --color-faint: #6d6c66;
+  --color-line: rgba(237, 236, 232, 0.1);
+  --color-orange: #ff5a1f;
+
+  --font-display: var(--font-anton);
+  --font-sans: var(--font-barlow);
+  --font-mono: var(--font-plex);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-base);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: var(--color-orange);
+  color: var(--color-base);
+}
+
+/* Caution-stripe divider. Used sparingly: one band, one footer edge. */
+.hazard {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--color-orange) 0 12px,
+    transparent 12px 24px
+  );
+}
+
+/* Diagonal crosshatch fill for clearly-marked photo placeholders */
+.placeholder-hatch {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(237, 236, 232, 0.05) 0 1px,
+    transparent 1px 10px
+  );
+}
+
+/* Dark-friendly treatment for the embedded map: inverted so it reads
+   as a dark map with light roads instead of a bright white block */
+.map-dark {
+  filter: invert(0.88) hue-rotate(180deg) grayscale(1) contrast(0.95);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
